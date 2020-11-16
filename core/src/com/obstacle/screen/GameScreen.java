@@ -10,6 +10,7 @@ import com.obstacle.config.GameConfig;
 import com.obstacle.entity.Player;
 import com.obstacle.util.GdxUtils;
 import com.obstacle.util.ViewportUtils;
+import com.obstacle.util.debug.DebugCameraController;
 
 public class GameScreen implements Screen {
 
@@ -18,7 +19,9 @@ public class GameScreen implements Screen {
 	private OrthographicCamera camera;
 	private Viewport viewport;
 	private ShapeRenderer renderer;
+
 	private Player player;
+	private DebugCameraController debugCameraController;
 
 	@Override
 	public void show () {
@@ -30,14 +33,23 @@ public class GameScreen implements Screen {
 		player = new Player();
 
 		// calculate position
-		float startPlayerX = GameConfig.WORLD_WIDTH / 2;
-		float startPlayerY = 1;
+//		float startPlayerX = GameConfig.WORLD_WIDTH / 2;
+//		float startPlayerY = 1;
+
+		float startPlayerX = 12;
+		float startPlayerY = 12;
 
 		player.setPosition(startPlayerX, startPlayerY);
+
+		// create deebug camera controller
+		debugCameraController = new DebugCameraController();
+		debugCameraController.setStartPosition(GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y);
 	}
 
 	@Override
 	public void render (float delta) {
+		debugCameraController.handleDebugInput(delta);
+		debugCameraController.applyTo(camera);
 		// update world
 		update(delta);
 
