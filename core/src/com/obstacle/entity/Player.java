@@ -32,13 +32,19 @@ public class Player {
 
     public void update() {
         float xSpeed = 0;
+        float ySpeed = 0;
 
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             xSpeed = MAX_X_SPEED;
         } else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             xSpeed = -MAX_X_SPEED;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            ySpeed = MAX_X_SPEED;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            ySpeed = -MAX_X_SPEED;
         }
         x += xSpeed;
+        y += ySpeed;
         updateBounds();
     }
 
