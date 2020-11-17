@@ -31,6 +31,8 @@ public class DebugCameraController {
     private static final float DEFAULT_MAX_ZOOM_IN = 0.20f;
     private static final float DEFAULT_MAX_ZOOM_OUT = 30f;
 
+
+
     // -- attributes --
     private Vector2 position = new Vector2();
     private Vector2 startPosition = new Vector2();
