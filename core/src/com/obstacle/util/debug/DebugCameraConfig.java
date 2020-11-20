@@ -11,6 +11,7 @@ public class DebugCameraConfig {
 
     public static final Logger log = new Logger(DebugCameraConfig.class.getName(), Logger.DEBUG);
 
+//    names/keys in key-value map or names of our values inside json file
     private static final String LEFT_KEY = "leftKey";
     private static final String RIGHT_KEY = "rightKey";
     private static final String UP_KEY = "upKey";
@@ -106,7 +107,10 @@ public class DebugCameraConfig {
     }
 
     private static int getInputKeyValue(JsonValue root, String name, int defaultInput) {
+//        get value with name from jsonValue (name-value map) if it does not exist use default
         String keyString = root.getString(name, Input.Keys.toString(defaultInput));
+
+//        convert string into keycode
         return Input.Keys.valueOf(keyString);
     }
 
@@ -125,6 +129,66 @@ public class DebugCameraConfig {
         zoomOutKey = DEFAULT_ZOOM_OUT_KEY;
         resetKey = DEFAULT_RESET_KEY;
         logKey = DEFAULT_LOG_KEY;
+    }
+
+    public float getMaxZoomIn() {
+        return maxZoomIn;
+    }
+
+    public float getMaxZoomOut() {
+        return maxZoomOut;
+    }
+
+    public float getZoomSpeed() {
+        return zoomSpeed;
+    }
+
+    public float getMoveSpeed() {
+        return moveSpeed;
+    }
+
+    public boolean isLeftPressed() {
+        return Gdx.input.isKeyPressed(leftKey);
+    }
+    public boolean isRightPressed() {
+        return Gdx.input.isKeyPressed(rightKey);
+    }
+    public boolean isUpPressed() {
+        return Gdx.input.isKeyPressed(upKey);
+    }
+    public boolean isDownPressed() {
+        return Gdx.input.isKeyPressed(downKey);
+    }
+
+
+    public boolean isZoomInPressed() {
+        return Gdx.input.isKeyPressed(zoomInKey);
+    }
+    public boolean isZoomOutPressed() {
+        return Gdx.input.isKeyPressed(zoomOutKey);
+    }
+    public boolean isResetPressed() {
+        return Gdx.input.isKeyPressed(resetKey);
+    }
+    public boolean isLogPressed() {
+        return Gdx.input.isKeyPressed(logKey);
+    }
+
+    @Override
+    public String toString() {
+        String LS = System.getProperty("line.separator");
+
+        return "DebugCameraConfig { " + LS +
+                "maxZoomIn = " + maxZoomIn + LS +
+                "maxZoomOut = " + maxZoomOut + LS +
+                "moveSpeed = " + moveSpeed + LS +
+                "zoomSpeed = " + zoomSpeed + LS +
+                "leftKey = " + Input.Keys.toString(leftKey) + LS +
+                "rightKey = " + Input.Keys.toString(rightKey) + LS +
+                "upKey = " + Input.Keys.toString(upKey) + LS +
+                "downKey = " + Input.Keys.toString(downKey) + LS +
+                "resetKey = " + Input.Keys.toString(resetKey) + LS +
+                " } ";
     }
 }
 
