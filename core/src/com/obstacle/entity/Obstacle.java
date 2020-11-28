@@ -2,19 +2,17 @@ package com.obstacle.entity;
 
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.utils.Pool;
 import com.obstacle.config.GameConfig;
 
-public class Obstacle extends GameObjectBase {
-
-    private static final float BOUNDS_RADIUS = 0.4f; // world units
-    private static final float SIZE = 2 * BOUNDS_RADIUS;
-
+public class Obstacle extends GameObjectBase implements Pool.Poolable {
 
     private float ySpeed = GameConfig.MEDIUM_OBSTACLE_SPEED;
     private boolean hit;
 
     public Obstacle() {
-        super(BOUNDS_RADIUS);
+        super(GameConfig.OBSTACLE_BOUNDS_RADIUS);
+        setSize(GameConfig.OBSTACLE_SIZE, GameConfig.OBSTACLE_SIZE);
     }
 
     public boolean isPlayerColliding(Player player) {
@@ -36,9 +34,12 @@ public class Obstacle extends GameObjectBase {
         setPosition(getX(), getY() - ySpeed);
     }
 
-    public float getWidth() { return SIZE;}
-
     public void setYSpeed(float obstacleSpeed) {
         this.ySpeed = obstacleSpeed;
+    }
+
+    @Override
+    public void reset() {
+        hit = false;
     }
 }
