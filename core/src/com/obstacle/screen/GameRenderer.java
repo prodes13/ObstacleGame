@@ -1,6 +1,7 @@
 package com.obstacle.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.obstacle.assets.AssetDescriptors;
 import com.obstacle.assets.AssetPaths;
 import com.obstacle.config.GameConfig;
 import com.obstacle.entity.Background;
@@ -38,6 +40,7 @@ public class GameRenderer implements Disposable {
     private final GlyphLayout layout = new GlyphLayout();
     private DebugCameraController debugCameraController;
     private final GameController controller;
+    private final AssetManager assetManager;
 
     // textures
     private Texture playerTexture;
@@ -45,7 +48,8 @@ public class GameRenderer implements Disposable {
     private Texture backgroundTexture;
 
     // -- constructor
-    public GameRenderer(GameController controller) {
+    public GameRenderer(AssetManager assetManager, GameController controller) {
+        this.assetManager = assetManager;
         this.controller = controller;
         init();
     }
@@ -58,8 +62,8 @@ public class GameRenderer implements Disposable {
         hudCamera = new OrthographicCamera();
         hudViewport = new FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT, hudCamera);
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal(AssetPaths.UI_FONT1));
-        scoreFont = new BitmapFont(Gdx.files.internal(AssetPaths.UI_FONT2));
+        font = assetManager.get(AssetDescriptors.FONT1);
+        scoreFont = assetManager.get(AssetDescriptors.FONT2);
 
 
         // create deebug camera controller
@@ -68,9 +72,9 @@ public class GameRenderer implements Disposable {
 
         // textures
         // Gdx.files.internal points to the assets folder
-        playerTexture = new Texture(Gdx.files.internal("gameplay/player.png"));
-        obstacleTexture = new Texture(Gdx.files.internal("gameplay/obstacle.png"));
-        backgroundTexture = new Texture(Gdx.files.internal("gameplay/background.png"));
+        playerTexture = assetManager.get(AssetDescriptors.PLAYER);
+        obstacleTexture = assetManager.get(AssetDescriptors.OBSTACLE);
+        backgroundTexture = assetManager.get(AssetDescriptors.BACKGROUND);
     }
 
     private void renderGamePlay() {
@@ -136,11 +140,6 @@ public class GameRenderer implements Disposable {
     public void dispose () {
         renderer.dispose();
         batch.dispose();
-        font.dispose();
-        scoreFont.dispose();
-        playerTexture.dispose();
-        obstacleTexture.dispose();
-        backgroundTexture.dispose();
     }
 
     private void renderUi() {
