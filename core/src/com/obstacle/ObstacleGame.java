@@ -10,7 +10,7 @@ import com.obstacle.screen.GameScreen;
 public class ObstacleGame extends Game {
 
 	private AssetManager assetManager;
-	// dont make asset manager static it causes bugs and memory leaks
+	// don't make asset manager static it causes bugs and memory leaks
 
 	@Override
 	public void create() {
