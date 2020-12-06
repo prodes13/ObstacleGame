@@ -1,4 +1,4 @@
-package com.obstacle.screen;
+package com.obstacle.screen.game;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
@@ -19,14 +19,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-
-        assetManager.load(AssetDescriptors.FONT1);
-        assetManager.load(AssetDescriptors.FONT2);
-        assetManager.load(AssetDescriptors.PLAYER);
-        assetManager.load(AssetDescriptors.BACKGROUND);
-        assetManager.load(AssetDescriptors.OBSTACLE);
-
-        assetManager.finishLoading();
 
         controller = new GameController();
         renderer = new GameRenderer(assetManager, controller);
@@ -62,4 +54,5 @@ public class GameScreen implements Screen {
     public void dispose() {
         renderer.dispose();
     }
+
 }

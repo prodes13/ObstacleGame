@@ -5,7 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Logger;
-import com.obstacle.screen.GameScreen;
+import com.obstacle.screen.loading.LoadingScreen;
 
 public class ObstacleGame extends Game {
 
@@ -20,7 +20,7 @@ public class ObstacleGame extends Game {
 		assetManager.getLogger().setLevel(Logger.DEBUG);
 
 		// passing our game .. it means this
-		setScreen(new GameScreen(this));
+		setScreen(new LoadingScreen(this));
 	}
 
 	@Override
